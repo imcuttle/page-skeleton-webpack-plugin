@@ -19,6 +19,9 @@
     "build:script": "rollup --config src/script/rollup.config.js",
     "prepare": "npm run build:index && npm run build:sockjs && npm run build:preview && npm run build:script"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "puppeteer",
     "page skeleton",
