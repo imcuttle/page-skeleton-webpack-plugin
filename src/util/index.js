@@ -109,6 +109,33 @@ const collectImportantComments = (css) => {
   return combined.join('\n')
 }
 
+// const generateSkeletonScreen = async (originHtml, options, log) => {
+//   const { pathname, staticDir, routes } = options
+//   return Promise.all(routes.map(async (route) => {
+//     const trimedRoute = route.replace(/\//g, '')
+//     const filePath = path.join(pathname, trimedRoute ? `${trimedRoute}.html` : 'index.html')
+//     const html = await promisify(fs.readFile)(filePath, 'utf-8')
+//     const finalHtml = originHtml.replace('<!-- shell -->', html)
+//     const outputDir = path.join(staticDir, route)
+//     const outputFile = path.join(outputDir, 'index.html')
+//     await fse.ensureDir(outputDir)
+//     await promisify(fs.writeFile)(outputFile, finalHtml, 'utf-8')
+//     log(`write ${outputFile} successfully in ${route}`)
+//     return Promise.resolve()
+//   }))
+// }
+
+const injectShellHtml = async (originHtml, route, options) => {
+  const {pathname} = options
+  const trimedRoute = route.replace(/\//g, '')
+  const filePath = path.resolve(path.join(pathname, trimedRoute ? `${trimedRoute}.html` : 'index.html'))
+  if (!fs.existsSync(filePath)) {
+    return originHtml
+  }
+  const html = await promisify(fs.readFile)(filePath, 'utf-8')
+  return originHtml.replace('<!-- shell -->', html)
+}
+
 const outputSkeletonScreen = async (originHtml, options, log) => {
   const { pathname, staticDir, routes } = options
   return Promise.all(routes.map(async (route) => {
@@ -177,6 +204,7 @@ const getLocalIpAddress = () => {
 const snakeToCamel = name => name.replace(/-([a-z])/g, (_, p1) => p1.toUpperCase())
 
 module.exports = {
+  injectShellHtml,
   createLog,
   sleep,
   sockWrite,
