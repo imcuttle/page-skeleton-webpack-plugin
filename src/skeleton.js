@@ -252,7 +252,7 @@ class Skeleton {
       .replace('$$html$$', cleanedHtml)
     const result = {
       originalRoute: route,
-      route: await page.evaluate('window.location.pathname'),
+      route,
       html: htmlMinify(shellHtml, false)
     }
     await this.closePage(page)
