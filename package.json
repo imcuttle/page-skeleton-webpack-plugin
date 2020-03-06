@@ -26,6 +26,9 @@
   ],
   "author": "jocs",
   "license": "MIT",
+  "files": [
+    "index.js", "src", "preview", "client"
+  ],
   "dependencies": {
     "chalk": "^2.4.1",
     "codemirror": "^5.36.0",
