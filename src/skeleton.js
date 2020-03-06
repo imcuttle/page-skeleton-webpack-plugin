@@ -7,7 +7,22 @@ const { sleep, genScriptContent, htmlMinify, collectImportantComments } = requir
 
 class Skeleton {
   constructor(options = {}, log) {
-    this.options = options
+    this.options = Object.assign({
+      injectCss: '.sk-pseudo{user-select:none;}',
+      shellHtmlTemplate: `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>Page Skeleton</title>
+        <style>
+          $$css$$
+        </style>
+      </head>
+      <body>
+        $$html$$
+      </body>
+      </html>`
+    }, options)
     this.browser = null
     this.scriptContent = ''
     this.pages = new Set()
@@ -234,21 +249,10 @@ class Skeleton {
     const finalCss = collectImportantComments(allCleanedCSS)
     // finalCss = minify(finalCss).css ? `html-minifier` use `clean-css` as css minifier
     // so don't need to use another mimifier.
-    let shellHtml = `<!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <title>Page Skeleton</title>
-        <style>
-          $$css$$
-        </style>
-      </head>
-      <body>
-        $$html$$
-      </body>
-      </html>`
+    let shellHtml = this.options.shellHtmlTemplate
+    let injectCss = this.options.injectCss
     shellHtml = shellHtml
-      .replace('$$css$$', finalCss)
+      .replace('$$css$$', [injectCss, finalCss].join('\n'))
       .replace('$$html$$', cleanedHtml)
     const result = {
       originalRoute: route,
