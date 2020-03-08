@@ -62,7 +62,9 @@ SkeletonPlugin.prototype.apply = function (compiler) {
   // eslint-disable-line func-names
   if (compiler.hooks) {
     compiler.hooks.entryOption.tap(PLUGIN_NAME, () => {
-      this.createServer()
+      const isDevMode = compiler.options.mode === 'development' || process.env.NODE_ENV !== 'production'
+      // eslint-disable-next-line no-unused-expressions
+      isDevMode && this.createServer()
     })
 
     compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
@@ -94,7 +96,9 @@ SkeletonPlugin.prototype.apply = function (compiler) {
     })
   } else {
     compiler.plugin('entry-option', () => {
-      this.createServer()
+      const isDevMode = compiler.options.mode === 'development' || process.env.NODE_ENV !== 'production'
+      // eslint-disable-next-line no-unused-expressions
+      isDevMode && this.createServer()
     })
 
     compiler.plugin('compilation', (compilation) => {
