@@ -1,6 +1,6 @@
 {
   "name": "@moyuyc/page-skeleton-webpack-plugin",
-  "version": "0.10.14",
+  "version": "0.10.15",
   "description": "web site skeleton generator",
   "main": "index.js",
   "scripts": {
