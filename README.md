@@ -1,3 +1,8 @@
+**@moyuyc/page-skeleton-webpack-plugin Forked from https://github.com/ElemeFE/page-skeleton-webpack-plugin**
+
+- Support hash router in client script
+- Add `injectCss` / `shellHtmlTemplate` option like https://github.com/imcuttle/page-skeleton-webpack-plugin/commit/c9c236e507484accb0a3f9be1d7e46361fe1a77b
+
 <p align="center">
 <img src="https://github.com/ElemeFE/page-skeleton-webpack-plugin/raw/master/docs/banner.jpg" alt="mark text" width="100%">
 </p>
